@@ -3,13 +3,21 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 
+dotenv.load_dotenv()
+
 
 class Notification:
-    dotenv.load_dotenv()
     EMAIL_SENDER = os.getenv('EMAIL_SENDER')
     EMAIL_SENDER_PASSWORD = os.getenv('EMAIL_SENDER_PASSWORD')
     EMAIL_RECEIVER = os.getenv('EMAIL_RECEIVER').split(",")
     SMTP_SERVER = os.getenv('SMTP_SERVER')
+
+    SELL_NOTIFICATION_VALUE = os.getenv('SELL_NOTIFICATION_VALUE').split(",")
+    BUY_NOTIFICATION_VALUE = os.getenv('BUY_NOTIFICATION_VALUE').split(",")
+    CRYPTOS = os.getenv('CRYPTOS').split(",")
+
+    def __init__(self, current_price_list):
+        self.current_price_list = current_price_list
 
     def create_email_connection(self):
         gmail_user = self.EMAIL_SENDER
@@ -44,12 +52,12 @@ class Notification:
         except smtplib.SMTPRecipientsRefused:
             print("All recipients failed to receive email notification.")
 
-    def sell_notification(self, current_price_list, sell_notification_value, cryptos):
-        for i in range(len(current_price_list)):
-            if float(current_price_list[i]) >= float(sell_notification_value[i]):
-                self.send_email(False, cryptos[i], current_price_list[i])
+    def sell_notification(self):
+        for i in range(len(self.current_price_list)):
+            if float(self.current_price_list[i]) >= float(self.SELL_NOTIFICATION_VALUE[i]):
+                self.send_email(False, self.CRYPTOS[i], self.current_price_list[i])
 
-    def buy_notification(self, current_price_list, buy_notification_value, cryptos):
-        for i in range(len(current_price_list)):
-            if float(current_price_list[i]) <= float(buy_notification_value[i]):
-                self.send_email(True, cryptos[i], current_price_list[i])
+    def buy_notification(self):
+        for i in range(len(self.current_price_list)):
+            if float(self.current_price_list[i]) <= float(self.BUY_NOTIFICATION_VALUE[i]):
+                self.send_email(True, self.CRYPTOS[i], self.current_price_list[i])

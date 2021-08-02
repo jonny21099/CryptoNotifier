@@ -10,12 +10,20 @@ class Crypto:
     COINBASE_SECRET_KEY = os.getenv('COINBASE_SECRET_KEY')
 
     CURRENCY = os.getenv('CURRENCY')
-    CRYPTOS = os.getenv('CRYPTOS').split(",")
+    CRYPTOS = os.getenv('CRYPTOS')
 
-    current_price_list = []
+    def __init__(self):
+        if self.CURRENCY == '':
+            raise ValueError("Missing `currency`.")
+
+        if self.CRYPTOS == '':
+            raise ValueError("Missing `cryptos`.")
+        else:
+            self.CRYPTOS = self.CRYPTOS.split(",")
+
+        self.current_price_list = []
 
     def connect_coinbase(self):
-        self.current_price_list = []
         client = Client(self.COINBASE_API_KEY, self.COINBASE_SECRET_KEY)
         return client
 

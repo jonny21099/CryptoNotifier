@@ -9,15 +9,27 @@ dotenv.load_dotenv()
 class Notification:
     EMAIL_SENDER = os.getenv('EMAIL_SENDER')
     EMAIL_SENDER_PASSWORD = os.getenv('EMAIL_SENDER_PASSWORD')
-    EMAIL_RECEIVER = os.getenv('EMAIL_RECEIVER').split(",")
+    EMAIL_RECEIVER = os.getenv('EMAIL_RECEIVER')
     SMTP_SERVER = os.getenv('SMTP_SERVER')
 
-    SELL_NOTIFICATION_VALUE = os.getenv('SELL_NOTIFICATION_VALUE').split(",")
-    BUY_NOTIFICATION_VALUE = os.getenv('BUY_NOTIFICATION_VALUE').split(",")
+    SELL_NOTIFICATION_VALUE = os.getenv('SELL_NOTIFICATION_VALUE')
+    BUY_NOTIFICATION_VALUE = os.getenv('BUY_NOTIFICATION_VALUE')
     CRYPTOS = os.getenv('CRYPTOS').split(",")
 
     def __init__(self, current_price_list):
         self.current_price_list = current_price_list
+        if self.EMAIL_SENDER == '':
+            raise ValueError("Missing `email_sender`.")
+
+        if self.EMAIL_RECEIVER == '':
+            raise ValueError("Missing `email_receiver`.")
+        else:
+            self.EMAIL_RECEIVER = self.EMAIL_RECEIVER.split(",")
+
+        if self.EMAIL_SENDER_PASSWORD == '':
+            raise ValueError("Missing `email_sender_password`.")
+        if self.SMTP_SERVER == '':
+            raise ValueError("Missing `smtp_server`.")
 
     def create_email_connection(self):
         gmail_user = self.EMAIL_SENDER
@@ -53,11 +65,21 @@ class Notification:
             print("All recipients failed to receive email notification.")
 
     def sell_notification(self):
+        if self.SELL_NOTIFICATION_VALUE == '':
+            raise ValueError("Missing `sell_notification_value`.")
+        else:
+            self.SELL_NOTIFICATION_VALUE = self.SELL_NOTIFICATION_VALUE.split(",")
+
         for i in range(len(self.current_price_list)):
             if float(self.current_price_list[i]) >= float(self.SELL_NOTIFICATION_VALUE[i]):
                 self.send_email(False, self.CRYPTOS[i], self.current_price_list[i])
 
     def buy_notification(self):
+        if self.BUY_NOTIFICATION_VALUE == '':
+            raise ValueError("Missing `buy_notification_value`.")
+        else:
+            self.BUY_NOTIFICATION_VALUE = self.BUY_NOTIFICATION_VALUE.split(",")
+
         for i in range(len(self.current_price_list)):
             if float(self.current_price_list[i]) <= float(self.BUY_NOTIFICATION_VALUE[i]):
                 self.send_email(True, self.CRYPTOS[i], self.current_price_list[i])

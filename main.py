@@ -9,6 +9,9 @@ dotenv.load_dotenv()
 
 UPDATE_INTERVAL = os.getenv("UPDATE_INTERVAL")
 
+if UPDATE_INTERVAL == '':
+    raise ValueError("Missing `update_interval`")
+
 
 def main():
     crypto = Crypto()

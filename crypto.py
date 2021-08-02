@@ -21,7 +21,9 @@ class Crypto:
 
     def get_crypto_price(self):
         client = self.connect_coinbase()
+        print("Fetching prices...")
         for crypto in self.CRYPTOS:
             price = client.get_spot_price(currency_pair=crypto + "-" + self.CURRENCY)
+            print(price)
             self.current_price_list.append(price['amount'])
         return self.current_price_list

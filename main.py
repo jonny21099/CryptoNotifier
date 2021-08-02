@@ -21,6 +21,8 @@ def main():
 
     notification.sell_notification()
 
+    print('\n')
+
 
 if __name__ == "__main__":
     print("Thank you for using Jmartins Crypto Notifier.\n\nThe program is now running.")

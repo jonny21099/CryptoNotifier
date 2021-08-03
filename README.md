@@ -3,7 +3,7 @@
 ## Introduction
 ### This is a configurable email notification program that notifies users when crypto prices have reached a specified amount. *This program uses coinbase API to retrieve prices, therefore users must be a member of coinbase.* 
 
-## Screenshot
+## Screenshots
 ### Running Program
 ![image](https://user-images.githubusercontent.com/43177180/127956167-38d09bf7-e888-42cf-9c81-57f77783ff1a.png)
 ### Sent Email
@@ -52,6 +52,6 @@ EMAIL_RECEIVER='receiver1@domain.com,receiver2@domain.com,receiver3@domain.com'
 ## Credits
 #### All rights and credits for HTML and css [template](https://github.com/leemunroe/responsive-html-email-template) goes to Lee Munroe.
 
-## Warning
+## Warnings
 #### Do not give out your API_KEY or API_SECRET to anyone, this can give someone full access to your account.
 #### When using a sender email it is recommended to create a new email for sending notifications.

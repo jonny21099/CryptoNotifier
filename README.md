@@ -42,6 +42,9 @@ SMTP_SERVER='smtp.domain.com'
 EMAIL_RECEIVER='receiver1@domain.com,receiver2@domain.com,receiver3@domain.com'
 ```
 
+## Credits
+#### All rights and credits for HTML and css [template](https://github.com/leemunroe/responsive-html-email-template) goes to Lee Munroe.
+
 ## Warning
 #### Do not give out your API_KEY or API_SECRET to anyone, this can give someone full access to your account.
 #### When using a sender email it is recommended to create a new email for sending notifications.

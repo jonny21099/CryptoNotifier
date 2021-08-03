@@ -3,6 +3,13 @@
 ## Introduction
 ### This is a configurable email notification program that notifies users when crypto prices have reached a specified amount. *This program uses coinbase API to retrieve prices, therefore users must be a member of coinbase.* 
 
+## Screenshot
+### Running Program
+![image](https://user-images.githubusercontent.com/43177180/127956167-38d09bf7-e888-42cf-9c81-57f77783ff1a.png)
+### Sent Email
+![image](https://user-images.githubusercontent.com/43177180/127956252-c1c356fe-f135-4539-a1a6-d81602eaa8e6.png)
+
+
 ## Setup
 #### 1. Obtain coinbase access key and secret key (no permissions needed to use this program).
 #### 2. Create a new file called .env in the same directory as main.py.

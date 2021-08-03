@@ -44,16 +44,17 @@ class Notification:
             print("Failed to authenticate user.")
 
     def send_email(self, buy, crypto, price):
+        email_css = open("email.css").read()
+        email_html = open("email.html").read()
         if buy:
             subject = "[B]Jmartins Crypto Notifier"
-            body = "You setup an alert with Jmartins Crypto Notifier.\n\n" \
-                   "{} has reached ${}, and is lower than your expected purchase price.".format(crypto, price)
+            body = email_html.format(email_css, crypto, price, "buying")
+
         else:
             subject = "[S]Jmartins Crypto Notifier"
-            body = "You setup an alert with Jmartins Crypto Notifier.\n\n" \
-                   "{} has reached ${}, and is higher than your expected selling price.".format(crypto, price)
+            body = email_html.format(email_css, crypto, price, "selling")
 
-        msg = MIMEText(body)
+        msg = MIMEText(body, 'html')
         msg['Subject'] = subject
 
         try:

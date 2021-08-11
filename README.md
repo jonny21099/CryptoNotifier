@@ -36,7 +36,7 @@ CRYPTOS='BTC,ETH'
 SELL_NOTIFICATION_VALUE='50,000,4,000'
 BUY_NOTIFICATION_VALUE='20,000,1,000'
 ```
-#### UPDATE_INTERVAL: How often to fetch value from Coinbase.
+#### UPDATE_INTERVAL: How often to fetch value from Coinbase in seconds.
 #### EMAIL_SENDER: What email you would like to send from.
 #### EMAIL_SENDER_PASSWORD: Password of the sender email.
 #### SMTP_SERVER: SMTP Server of the sender.

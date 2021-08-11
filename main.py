@@ -13,11 +13,12 @@ if UPDATE_INTERVAL == '':
     raise ValueError("Missing `update_interval`")
 
 s = sched.scheduler(time.time, time.sleep)
+crypto = Crypto()
+client = crypto.connect_coinbase()
 
 
 def retrieve_and_notify_price():
-    crypto = Crypto()
-    current_price_list = crypto.get_crypto_price()
+    current_price_list = crypto.get_crypto_price(client)
 
     notification = Notification(current_price_list)
     notification.buy_notification()

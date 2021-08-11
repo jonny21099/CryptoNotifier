@@ -21,17 +21,15 @@ class Crypto:
         else:
             self.CRYPTOS = self.CRYPTOS.split(",")
 
-        self.current_price_list = []
-
     def connect_coinbase(self):
         client = Client(self.COINBASE_API_KEY, self.COINBASE_SECRET_KEY)
         return client
 
-    def get_crypto_price(self):
-        client = self.connect_coinbase()
+    def get_crypto_price(self, client):
+        current_price_list = []
         print("Fetching prices...")
         for crypto in self.CRYPTOS:
             price = client.get_spot_price(currency_pair=crypto + "-" + self.CURRENCY)
             print(price)
-            self.current_price_list.append(price['amount'])
-        return self.current_price_list
+            current_price_list.append(price['amount'])
+        return current_price_list

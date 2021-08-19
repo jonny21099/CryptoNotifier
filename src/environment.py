@@ -3,61 +3,59 @@ import os
 
 dotenv.load_dotenv()
 
-update_interval = os.getenv("UPDATE_INTERVAL")
+environment = dict()
 
-coinbase_api_key = os.getenv('COINBASE_API_KEY')
-coinbase_secret_key = os.getenv('COINBASE_SECRET_KEY')
+environment["update_interval"] = os.getenv("UPDATE_INTERVAL")
 
-currency = os.getenv('CURRENCY')
-cryptos = os.getenv('CRYPTOS')
+environment["coinbase_api_key"] = os.getenv('COINBASE_API_KEY')
+environment["coinbase_secret_key"] = os.getenv('COINBASE_SECRET_KEY')
 
-email_sender = os.getenv('EMAIL_SENDER')
-email_sender_password = os.getenv('EMAIL_SENDER_PASSWORD')
-email_receiver = os.getenv('EMAIL_RECEIVER')
-smtp_server = os.getenv('SMTP_SERVER')
+environment["currency"] = os.getenv('CURRENCY')
+environment["cryptos"] = os.getenv('CRYPTOS')
 
-sell_notification_value = os.getenv('SELL_NOTIFICATION_VALUE')
-buy_notification_value = os.getenv('BUY_NOTIFICATION_VALUE')
+environment["email_sender"] = os.getenv('EMAIL_SENDER')
+environment["email_sender_password"] = os.getenv('EMAIL_SENDER_PASSWORD')
+environment["email_receiver"] = os.getenv('EMAIL_RECEIVER')
+environment["smtp_server"] = os.getenv('SMTP_SERVER')
+
+environment["sell_notification_value"] = os.getenv('SELL_NOTIFICATION_VALUE')
+environment["buy_notification_value"] = os.getenv('BUY_NOTIFICATION_VALUE')
 
 
 def instantiate_environment():
-    global update_interval, currency, cryptos, email_sender, email_receiver, email_sender_password, smtp_server, \
-        sell_notification_value, buy_notification_value
-
-    if update_interval == '':
+    if environment["update_interval"] == '':
         raise ValueError("Missing `update_interval`")
 
-    if currency == '':
+    if environment["currency"] == '':
         raise ValueError("Missing `currency`.")
 
-    if cryptos == '':
+    if environment["cryptos"] == '':
         raise ValueError("Missing `cryptos`.")
     else:
-        cryptos = cryptos.split(",")
+        environment["cryptos"] = environment["cryptos"].split(",")
 
-    if email_sender == '':
+    if environment["email_sender"] == '':
         raise ValueError("Missing `email_sender`.")
 
-    if email_receiver == '':
+    if environment["email_receiver"] == '':
         raise ValueError("Missing `email_receiver`.")
     else:
-        email_receiver = email_receiver.split(",")
+        environment["email_receiver"] = environment["email_receiver"].split(",")
 
-    if email_sender_password == '':
+    if environment["email_sender_password"] == '':
         raise ValueError("Missing `email_sender_password`.")
 
-    if smtp_server == '':
+    if environment["smtp_server"] == '':
         raise ValueError("Missing `smtp_server`.")
 
-    if sell_notification_value == '':
+    if environment["sell_notification_value"] == '':
         raise ValueError("Missing `sell_notification_value`.")
     else:
-        sell_notification_value = sell_notification_value.split(",")
+        environment["sell_notification_value"] = environment["sell_notification_value"].split(",")
 
-    if buy_notification_value == '':
+    if environment["buy_notification_value"] == '':
         raise ValueError("Missing `buy_notification_value`.")
     else:
-        buy_notification_value = buy_notification_value.split(",")
+        environment["buy_notification_value"] = environment["buy_notification_value"].split(",")
 
-    return update_interval, coinbase_api_key, coinbase_secret_key, currency, cryptos, email_sender, \
-           email_sender_password, email_receiver, smtp_server, sell_notification_value, buy_notification_value
+    return environment

@@ -7,8 +7,8 @@ environment = dict()
 
 environment["update_interval"] = os.getenv("UPDATE_INTERVAL")
 
-environment["coinbase_api_key"] = os.getenv('COINBASE_API_KEY')
-environment["coinbase_secret_key"] = os.getenv('COINBASE_SECRET_KEY')
+environment["api_key"] = os.getenv('COINBASE_API_KEY')
+environment["api_secret"] = os.getenv('COINBASE_SECRET_KEY')
 
 environment["currency"] = os.getenv('CURRENCY')
 environment["cryptos"] = os.getenv('CRYPTOS')

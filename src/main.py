@@ -10,17 +10,14 @@ from environment import instantiate_environment
 environment = instantiate_environment()
 
 s = sched.scheduler(time.time, time.sleep)
-crypto = Crypto(environment['coinbase_api_key'], environment['coinbase_secret_key'],
-                environment['currency'], environment['cryptos'])
+crypto = Crypto(environment)
 client = crypto.connect_coinbase()
 
 
 def retrieve_and_notify_price():
     current_price_list = crypto.get_crypto_price(client)
 
-    notification = Notification(current_price_list, environment['email_sender'], environment['email_sender_password'],
-                                environment['smtp_server'], environment['email_receiver'], environment['cryptos'],
-                                environment['buy_notification_value'], environment['sell_notification_value'])
+    notification = Notification(current_price_list, environment)
     notification.buy_notification()
     notification.sell_notification()
 

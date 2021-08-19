@@ -3,11 +3,11 @@ from coinbase.wallet.client import Client
 
 
 class Crypto:
-    def __init__(self, api_key, api_secret, currency, cryptos):
-        self.api_key = api_key
-        self.api_secret = api_secret
-        self.currency = currency
-        self.cryptos = cryptos
+    def __init__(self, environment):
+        self.api_key = environment["api_key"]
+        self.api_secret = environment["api_secret"]
+        self.currency = environment["currency"]
+        self.cryptos = environment["cryptos"]
 
     def connect_coinbase(self):
         client = Client(self.api_key, self.api_secret)

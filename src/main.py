@@ -6,19 +6,18 @@ from crypto import Crypto
 from notification import Notification
 from environment import instantiate_environment
 
-update_interval, coinbase_api_key, coinbase_secret_key, currency, cryptos, email_sender, email_sender_password, \
-email_receiver, smtp_server, sell_notification_value, buy_notification_value = instantiate_environment()
+
+environment = instantiate_environment()
 
 s = sched.scheduler(time.time, time.sleep)
-crypto = Crypto(coinbase_api_key, coinbase_secret_key, currency, cryptos)
+crypto = Crypto(environment)
 client = crypto.connect_coinbase()
 
 
 def retrieve_and_notify_price():
     current_price_list = crypto.get_crypto_price(client)
 
-    notification = Notification(current_price_list, email_sender, email_sender_password, smtp_server, email_receiver,
-                                cryptos, buy_notification_value, sell_notification_value)
+    notification = Notification(current_price_list, environment)
     notification.buy_notification()
     notification.sell_notification()
 
@@ -33,7 +32,7 @@ def main():
 
     while True:
         try:
-            s.enter(int(update_interval), 1, retrieve_and_notify_price)
+            s.enter(int(environment['update_interval']), 1, retrieve_and_notify_price)
             s.run()
 
         except Exception as error:
@@ -42,7 +41,7 @@ def main():
             file.close()
 
             print("Error occurred: {}.".format(error))
-            print("The program will try again.\n".format(update_interval))
+            print("The program will try again.\n".format(environment['update_interval']))
 
             continue
 

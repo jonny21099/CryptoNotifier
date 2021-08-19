@@ -3,16 +3,15 @@ from email.mime.text import MIMEText
 
 
 class Notification:
-    def __init__(self, current_price_list, email_sender, email_sender_password, smtp_server,
-                 email_receiver, cryptos, buy_notification_value, sell_notification_value):
+    def __init__(self, current_price_list, environment):
         self.current_price_list = current_price_list
-        self.email_sender = email_sender
-        self.email_sender_password = email_sender_password
-        self.smtp_server = smtp_server
-        self.email_receiver = email_receiver
-        self.cryptos = cryptos
-        self.buy_notification_value = buy_notification_value
-        self.sell_notification_value = sell_notification_value
+        self.email_sender = environment["email_sender"]
+        self.email_sender_password = environment["email_sender_password"]
+        self.smtp_server = environment["smtp_server"]
+        self.email_receiver = environment["email_receiver"]
+        self.cryptos = environment["cryptos"]
+        self.buy_notification_value = environment["buy_notification_value"]
+        self.sell_notification_value = environment["sell_notification_value"]
 
     def create_email_connection(self):
         try:

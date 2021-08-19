@@ -1,7 +1,6 @@
 import unittest
 import dotenv
 import os
-import smtplib
 
 from src.notification import Notification
 from unittest.mock import MagicMock

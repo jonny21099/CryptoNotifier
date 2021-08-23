@@ -11,7 +11,7 @@
 
 
 ## Setup
-#### 1. Obtain coinbase access key and secret key (no permissions needed to use this program).
+#### 1. Obtain coinbase access key and secret key (grant these permissions: wallet:buys:read, wallet:sells:read, wallet:accounts:read).
 #### 2. Create a new file called .env in the same directory as main.py.
 #### 3. Copy template.env file to .env file.
 #### 4. Copy coinbase access key and secret key into .env file.

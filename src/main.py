@@ -15,7 +15,7 @@ client = crypto.connect_coinbase()
 
 
 def retrieve_and_notify_price():
-    current_price_list = crypto.get_crypto_price(client)
+    current_price_list = crypto.get_crypto_data(client)
 
     notification = Notification(current_price_list, environment)
     notification.buy_notification()

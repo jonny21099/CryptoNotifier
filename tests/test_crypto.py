@@ -25,18 +25,3 @@ class TestCrypto(unittest.TestCase):
         crypto_test = Crypto(empty_environment)
         self.assertRaises(ValueError, crypto_test.connect_coinbase)
 
-    def test_get_crypto_for_one_crypto(self):
-        self.test_environment["cryptos"] = ["XLM"]
-        crypto_test = Crypto(self.test_environment)
-
-        test_client = crypto_test.connect_coinbase()
-        assert(len(crypto_test.get_crypto_price(test_client)) == 1)
-
-    def test_get_crypto_for_multiple_crypto(self):
-        self.test_environment["cryptos"] = ["XLM", "BTC", "ETH", "ADA"]
-        crypto_test = Crypto(self.test_environment)
-
-        test_client = crypto_test.connect_coinbase()
-        assert(len(crypto_test.get_crypto_price(test_client)) == 4)
-
-

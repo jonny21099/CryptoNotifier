@@ -1,7 +1,7 @@
 # CryptoNotifier
 
 ## Introduction
-### This is a configurable email notification program that notifies users when crypto prices have reached a specified amount. *This program uses coinbase API to retrieve prices, therefore users must be a member of coinbase.* 
+### This is a configurable email notification program that notifies users when crypto prices have reached a specified amount. *This program uses API to retrieve prices, therefore users must be a member of either coinbase or coinmarketcap.* 
 
 ## Screenshots
 ### Running Program
@@ -11,20 +11,27 @@
 
 
 ## Setup
-#### 1. Obtain coinbase access key and secret key (grant these permissions: wallet:buys:read, wallet:sells:read, wallet:accounts:read).
-#### 2. Create a new file called .env in the same directory as main.py.
+#### 1. (Coinbase Users) Obtain coinbase access key and secret key (grant these permissions: wallet:buys:read, wallet:sells:read, wallet:accounts:read).
+####    (CoinMarketCap Users) Obtain coinmarketcap API key.
+#### 2. Create a new file called .env the choice of program (either coinbase/ or coinmarketcap/).
 #### 3. Copy template.env file to .env file.
-#### 4. Copy coinbase access key and secret key into .env file.
+#### 4. Copy access key and secret key into .env file depending on choice of method.
 #### 5. Fill in the rest of the .env file.
 
 ## Environment Variables
 #### Here are all the environment variable meanings followed by an example:
-#### COINBASE_API_KEY: Coinbase API Key.
-#### COINBASE_API_SECRET: Coinbase API Secret.
-#### CURRENCY: Currency of price.
+#### *Pick either COINBASE or CMC don't use both*
+#### COINBASE_API_KEY: *for coinbase only Coinbase API Key.
+#### COINBASE_API_SECRET: *for coinbase only Coinbase API Secret.
+#### CMC_PRO_API_KEY: *for coinmarketcap only CoinMarketCap API Key.
 ```
 COINBASE_API_KEY='yourapikey'
 COINBASE_API_SECRET='yourapisecret'
+            OR
+CMC_PRO_API_KEY='yourapikey'
+```
+#### CURRENCY: Currency of price.
+```
 CURRENCY='USD'
 ```
 #### *The order of these values must match*

@@ -2,13 +2,13 @@ import unittest
 import dotenv
 import os
 
-from src.notification import Notification
+from src.coinbase.notification import Notification
 from unittest.mock import MagicMock
 
 dotenv.load_dotenv()
 
 
-class TestNotification(unittest.TestCase):
+class TestCoinbaseNotification(unittest.TestCase):
     test_environment = dict()
     price_list = ["4"]
     test_environment["email_sender"] = os.getenv("EMAIL_SENDER")

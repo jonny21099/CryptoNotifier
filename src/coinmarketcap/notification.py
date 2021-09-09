@@ -23,8 +23,8 @@ class Notification:
             print("Failed to authenticate user.")
 
     def send_email(self, buy, crypto, price):
-        email_css = open("src/email.css").read()
-        email_html = open("src/email.html").read()
+        email_css = open("../email/email.css").read()
+        email_html = open("../email/email.html").read()
         if buy:
             subject = "[B]Jmartins Crypto Notifier"
             body = email_html.format(email_css, crypto, price, "buying")

@@ -1,8 +1,8 @@
 import unittest
-from src.crypto import Crypto
+from src.coinbase.crypto import Crypto
 
 
-class TestCrypto(unittest.TestCase):
+class TestCoinbaseCrypto(unittest.TestCase):
     test_environment = dict()
     test_environment["api_key"] = "test_api_key"
     test_environment["api_secret"] = "test_api_secret"

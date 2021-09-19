@@ -6,6 +6,7 @@ dotenv.load_dotenv()
 environment = dict()
 
 environment["update_interval"] = os.getenv("UPDATE_INTERVAL")
+environment["message_interval"] = os.getenv("MESSAGE_INTERVAL_HOUR")
 
 environment["api_key"] = os.getenv('COINBASE_API_KEY')
 environment["api_secret"] = os.getenv('COINBASE_SECRET_KEY')
@@ -25,6 +26,9 @@ environment["buy_notification_value"] = os.getenv('BUY_NOTIFICATION_VALUE')
 def instantiate_environment():
     if environment["update_interval"] == '':
         raise ValueError("Missing `update_interval`")
+
+    if environment["message_interval"] == '':
+        raise ValueError("Missing `message_interval`")
 
     if environment["currency"] == '':
         raise ValueError("Missing `currency`.")

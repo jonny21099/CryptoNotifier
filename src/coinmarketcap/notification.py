@@ -40,16 +40,17 @@ class Notification:
             server = self.create_email_connection()
             server.send_message(msg, self.email_sender, self.email_receiver)
             server.close()
-            print("An Email has been sent!")
         except smtplib.SMTPRecipientsRefused:
             print("All recipients failed to receive email notification.")
 
-    def sell_notification(self):
+    def compare_price_and_notify(self):
+        emails_sent = 0
         for i in range(len(self.current_price_list)):
             if float(self.current_price_list[i]) >= float(self.sell_notification_value[i]):
                 self.send_email(False, self.cryptos[i], self.current_price_list[i])
-
-    def buy_notification(self):
-        for i in range(len(self.current_price_list)):
-            if float(self.current_price_list[i]) <= float(self.buy_notification_value[i]):
+            elif float(self.current_price_list[i]) <= float(self.buy_notification_value[i]):
                 self.send_email(True, self.cryptos[i], self.current_price_list[i])
+            else:
+                continue
+            emails_sent += 1
+        return emails_sent

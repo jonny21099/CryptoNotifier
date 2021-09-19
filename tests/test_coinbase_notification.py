@@ -31,18 +31,6 @@ class TestCoinbaseNotification(unittest.TestCase):
                 self.test_notification.buy_notification_value == self.test_environment["buy_notification_value"] and
                 self.test_notification.sell_notification_value == self.test_environment["sell_notification_value"])
 
-    def test_send_buy_email(self):
-        self.test_notification.send_email = MagicMock(return_value="TEST SEND BUY EMAIL")
-        self.test_notification.buy_notification()
-        self.test_notification.send_email.assert_called_once_with(True, self.test_environment["cryptos"][0],
-                                                                  self.price_list[0])
-
-    def test_send_sell_email(self):
-        self.test_notification.send_email = MagicMock(return_value="TEST SEND SELL EMAIL")
-        self.test_notification.sell_notification()
-        self.test_notification.send_email.assert_called_once_with(False, self.test_environment["cryptos"][0],
-                                                                  self.price_list[0])
-
 
 
 

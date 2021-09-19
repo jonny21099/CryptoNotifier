@@ -1,7 +1,7 @@
 import os
 import sched
 import time
-from datetime import datetime
+import datetime
 from crypto import Crypto
 from notification import Notification
 from environment import instantiate_environment
@@ -13,13 +13,26 @@ s = sched.scheduler(time.time, time.sleep)
 crypto = Crypto(environment)
 client = crypto.connect_coinbase()
 
+last_message_sent = None
+
 
 def retrieve_and_notify_price():
+    global last_message_sent
     current_price_list = crypto.get_crypto_data(client)
 
-    notification = Notification(current_price_list, environment)
-    notification.buy_notification()
-    notification.sell_notification()
+    current_time = datetime.datetime.now()
+    message_interval = datetime.timedelta(hours=int(environment['message_interval']))
+
+    if last_message_sent is None or current_time > last_message_sent + message_interval:
+        notification = Notification(current_price_list, environment)
+        emails_sent = notification.compare_price_and_notify()
+        if emails_sent == 1:
+            print("1 email has been sent!")
+        elif emails_sent > 1:
+            print("{} emails has been sent!".format(emails_sent))
+        else:
+            return
+        last_message_sent = current_time
 
     print('\n')
 
@@ -37,7 +50,7 @@ def main():
 
         except Exception as error:
             file = open("error.txt", "a")
-            file.write("An error occurred at time: {} with the error: {}\n".format(datetime.now(), error))
+            file.write("An error occurred at time: {} with the error: {}\n".format(datetime.datetime.now(), error))
             file.close()
 
             print("Error occurred: {}.".format(error))

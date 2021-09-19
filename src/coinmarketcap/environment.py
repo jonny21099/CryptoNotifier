@@ -6,7 +6,7 @@ dotenv.load_dotenv()
 environment = dict()
 
 environment["update_interval"] = os.getenv("UPDATE_INTERVAL")
-environment["message_interval"] = os.getenv("MESSAGE_INTERVAL_HOUR")
+environment["message_interval"] = os.getenv("MESSAGE_INTERVAL")
 
 environment["api_key"] = os.getenv('CMC_PRO_API_KEY')
 

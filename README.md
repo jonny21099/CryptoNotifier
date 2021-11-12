@@ -17,6 +17,7 @@
 #### 3. Copy template.env file to .env file.
 #### 4. Copy access key and secret key into .env file depending on choice of method.
 #### 5. Fill in the rest of the .env file.
+#### 6. MORE DETAILS GUIDE ON HOW TO SETUP AWS SNS COMING SOON
 
 ## Environment Variables
 #### Here are all the environment variable meanings followed by an example:
@@ -29,6 +30,14 @@ COINBASE_API_KEY='yourapikey'
 COINBASE_API_SECRET='yourapisecret'
             OR
 CMC_PRO_API_KEY='yourapikey'
+```
+#### AWS_ACCESS_KEY_ID: aws acccount access key, works with IAM users as well.
+#### AWS_SECRET_ACCESS_KEY: aws acccount secret key, works with IAM users as well.
+#### SNS_TOPIC_ARN: aws sns topic arn.
+```
+AWS_ACCESS_KEY_ID='yourawsaccesskey'
+AWS_SECRET_ACCESS_KEY='yourawssecretkey'
+SNS_TOPIC_ARN='snstopicarn'
 ```
 #### CURRENCY: Currency of price.
 ```
@@ -55,6 +64,14 @@ EMAIL_SENDER='senderemail@domain.com'
 EMAIL_SENDER_PASSWORD='senderemailpassword'
 SMTP_SERVER='smtp.domain.com'
 EMAIL_RECEIVER='receiver1@domain.com,receiver2@domain.com,receiver3@domain.com'
+```
+
+## Run Program
+#### The program takes in arguments to run the options are shown below.
+```
+python main.py smtp
+or
+python main.py sns
 ```
 
 ## Credits

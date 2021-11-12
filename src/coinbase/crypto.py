@@ -71,7 +71,7 @@ class Crypto:
             profit_message = Fore.RED + "Profit: ${}".format(crypto_profit)
 
         message = "Asset: {}\n".format(price.base) \
-                  + "Currency: {}\n".format(price.currency) \
+                  + "Currency: {}\n".format(price.__currency) \
                   + "Holding: {}\n".format(holding.balance.amount) \
                   + "Price: ${}\n".format(price.amount) \
                   + "Balance: ${}\n".format(holding.native_balance.amount) \

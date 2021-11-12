@@ -1,7 +1,7 @@
 import boto3
 
 
-class Notification:
+class NotificationSNS:
     def __init__(self, current_price_list, environment):
         self.__current_price_list = current_price_list
         self.__cryptos = environment["cryptos"]

@@ -17,7 +17,7 @@ class Crypto:
         print("Fetching prices...")
         r = requests.get(URL, PARAMS)
         data = r.json()
-        print("Retrieval time: {}\n".format(datetime.now()))
+        print(f"Retrieval time: {datetime.now()}\n")
 
         for crypto in self.__cryptos:
             price = data['data'][crypto]["quote"][self.__currency]["price"]
@@ -27,9 +27,9 @@ class Crypto:
         return current_price_list
 
     def format_log_message(self, crypto, price):
-        message = "Asset: {}\n".format(crypto) \
-                  + "Currency: {}\n".format(self.__currency) \
-                  + "Price: ${}\n".format(price)
+        message = f"Asset: {crypto}\n" \
+                  + f"Currency: {self.__currency}\n" \
+                  + f"Price: ${price}\n"
         return message
 
 

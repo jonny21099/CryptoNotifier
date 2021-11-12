@@ -49,11 +49,11 @@ def main():
 
         except Exception as error:
             file = open("error.txt", "a")
-            file.write("An error occurred at time: {} with the error: {}\n".format(datetime.datetime.now(), error))
+            file.write(f"An error occurred at time: {datetime.datetime.now()} with the error: {error}\n")
             file.close()
 
-            print("Error occurred: {}.".format(error))
-            print("The program will try again.\n".format(Environment.environment['update_interval']))
+            print(f"Error occurred: {error}.")
+            print(f"The program will try again.\n")
 
             continue
 

@@ -40,10 +40,10 @@ def main():
         os.remove("error.txt")
 
     print("Thank you for using Jmartins Crypto Notifier.\n\nThe program is now running.")
+    retrieve_and_notify_price()
 
     while True:
         try:
-            retrieve_and_notify_price()
             s.enter(int(Environment.environment['update_interval']), 1, retrieve_and_notify_price)
             s.run()
 

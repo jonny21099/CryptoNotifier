@@ -8,7 +8,7 @@ class Crypto:
         self.__currency = environment["currency"]
         self.__cryptos = environment["cryptos"]
 
-    def get_crypto_quote(self):
+    def get_crypto_quote(self, last_message_sent):
         current_price_list = []
 
         URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
@@ -17,7 +17,8 @@ class Crypto:
         print("Fetching prices...")
         r = requests.get(URL, PARAMS)
         data = r.json()
-        print(f"Retrieval time: {datetime.now()}\n")
+        print(f"Retrieval time: {datetime.now()}")
+        print(f"Last message sent: {last_message_sent if last_message_sent is not None else 'No messages sent so far'}\n")
 
         for crypto in self.__cryptos:
             price = data['data'][crypto]["quote"][self.__currency]["price"]

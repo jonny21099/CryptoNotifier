@@ -17,7 +17,7 @@ last_message_sent = None
 
 def retrieve_and_notify_price():
     global last_message_sent
-    current_price_list = crypto.get_crypto_quote()
+    current_price_list = crypto.get_crypto_quote(last_message_sent)
 
     current_time = datetime.datetime.now()
     message_interval = datetime.timedelta(hours=int(Environment.environment['message_interval']))

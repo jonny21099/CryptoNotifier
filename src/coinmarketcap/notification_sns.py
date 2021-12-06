@@ -14,8 +14,12 @@ class NotificationSNS:
         emails_sent = 0
         for i in range(len(self.__current_price_list)):
             if float(self.__current_price_list[i]) >= float(self.__sell_notification_value[i]):
+                print(f"The price of {self.__cryptos[i]} has reached {self.__current_price_list[i]}.")
+                buy = False
                 self.publish_notification(False, self.__cryptos[i], self.__current_price_list[i])
             elif float(self.__current_price_list[i]) <= float(self.__buy_notification_value[i]):
+                print(f"The price of {self.__cryptos[i]} has dropped to {self.__current_price_list[i]}.")
+                buy = True
                 self.publish_notification(True, self.__cryptos[i], self.__current_price_list[i])
             else:
                 continue

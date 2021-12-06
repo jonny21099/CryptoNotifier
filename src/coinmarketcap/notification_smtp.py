@@ -1,4 +1,5 @@
 import smtplib
+import datetime
 from email.mime.text import MIMEText
 
 
@@ -12,6 +13,8 @@ class NotificationSMTP:
         self.__cryptos = environment["cryptos"]
         self.__buy_notification_value = environment["buy_notification_value"]
         self.__sell_notification_value = environment["sell_notification_value"]
+        self.__notification_cd_timer = environment["notification_cd_timer"]
+        self.__notification_interval = environment["notification_interval"]
 
     def create_email_connection(self):
         try:
@@ -48,11 +51,15 @@ class NotificationSMTP:
         for i in range(len(self.__current_price_list)):
             if float(self.__current_price_list[i]) >= float(self.__sell_notification_value[i]):
                 print(f"The price of {self.__cryptos[i]} has reached {self.__current_price_list[i]}.")
-                self.send_email(False, self.__cryptos[i], self.__current_price_list[i])
+                buy = False
             elif float(self.__current_price_list[i]) <= float(self.__buy_notification_value[i]):
                 print(f"The price of {self.__cryptos[i]} has dropped to {self.__current_price_list[i]}.")
-                self.send_email(True, self.__cryptos[i], self.__current_price_list[i])
+                buy = True
             else:
                 continue
+            if self.__notification_cd_timer[i] is None or self.__notification_cd_timer[i] + datetime.timedelta(
+                    hours=self.__notification_interval) <= datetime.datetime.now():
+                self.send_email(buy, self.__cryptos[i], self.__current_price_list[i])
+                self.__notification_cd_timer[i] = datetime.datetime.now()
             emails_sent += 1
         return emails_sent

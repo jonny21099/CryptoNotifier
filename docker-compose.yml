@@ -33,3 +33,4 @@ services:
     command: run-crypto-cmc-smtp
     environment:
       - "EMAIL_PATH=/home/developer/src/email"
+      - PYTHONUNBUFFERED=1

@@ -6,7 +6,7 @@ x-volume-mounts: &volumes
 
 x-defaults: &defaults
   user: "1000:1000" # slash:slash (uid:gid) (use 0:0 for root)
-  hostname: clickity
+  hostname: crypto-notifier
   build:
     context: .
     dockerfile: ./container/Dockerfile
@@ -18,7 +18,7 @@ x-defaults: &defaults
     - 9000:9000
   # This will override the default image names so you don't need an
   # image per-service below
-  image: clickity
+  image: crypto-notifier
 
 x-defaults-script: &defaults-script
   <<: *defaults

@@ -38,7 +38,7 @@ RUN chmod 666 /motd
 COPY container/bin /home/developer/bin
 RUN chown -R developer:developer /home/developer/bin && chmod 755 -R /home/developer/bin
 
-ENV HOSTNAME clickity
+ENV HOSTNAME crypto-notifier
 ENV PATH /home/developer/bin:$PATH
 USER developer
 WORKDIR /home/developer

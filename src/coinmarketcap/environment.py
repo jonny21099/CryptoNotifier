@@ -9,8 +9,8 @@ class Environment:
     environment = dict()
 
     def __init__(self):
-        self.environment["update_interval"] = os.getenv("UPDATE_INTERVAL")
-        self.environment["message_interval"] = os.getenv("MESSAGE_INTERVAL")
+        self.environment["update_interval"] = int(os.getenv("UPDATE_INTERVAL"))
+        self.environment["notification_interval"] = float(os.getenv("NOTIFICATION_INTERVAL"))
 
         self.environment["api_key"] = os.getenv('CMC_PRO_API_KEY')
 
@@ -27,6 +27,7 @@ class Environment:
         self.environment["sell_notification_value"] = os.getenv('SELL_NOTIFICATION_VALUE')
         self.environment["buy_notification_value"] = os.getenv('BUY_NOTIFICATION_VALUE')
 
+        self.environment["notification_cd_timer"] = [None] * len(self.environment["cryptos"])
         self.environment["notification_type"] = self.__instantiate_environment()
 
     def __instantiate_environment(self):
@@ -64,8 +65,8 @@ class Environment:
         if self.environment["update_interval"] == '':
             raise ValueError("Missing `update_interval`")
 
-        if self.environment["message_interval"] == '':
-            raise ValueError("Missing `message_interval`")
+        if self.environment["notification_interval"] == '':
+            raise ValueError("Missing `notification_interval`")
 
         if self.environment["currency"] == '':
             raise ValueError("Missing `currency`.")

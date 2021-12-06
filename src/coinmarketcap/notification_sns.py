@@ -1,6 +1,6 @@
 import boto3
 import datetime
-from src.coinmarketcap.notification_utils import NotificationUtils
+from notification_utils import NotificationUtils
 
 
 class NotificationSNS:

@@ -1,0 +1,35 @@
+version: "3.8"
+
+x-volume-mounts: &volumes
+  # Paths relevent for building, developing, and running the project
+  - './src:/home/developer/src:rw'
+
+x-defaults: &defaults
+  user: "1000:1000" # slash:slash (uid:gid) (use 0:0 for root)
+  hostname: clickity
+  build:
+    context: .
+    dockerfile: ./container/Dockerfile
+  volumes: *volumes
+  command: zsh
+  env_file: ./src/coinmarketcap/.env
+  ports:
+    - 8000:8000
+    - 9000:9000
+  # This will override the default image names so you don't need an
+  # image per-service below
+  image: clickity
+
+x-defaults-script: &defaults-script
+  <<: *defaults
+  entrypoint: /entrypoint_silent.sh
+
+services:
+  cli:
+    <<: *defaults
+
+  crypto-cmc-smtp:
+    <<: *defaults-script
+    command: run-crypto-cmc-smtp
+    environment:
+      - "EMAIL_PATH=/home/developer/src/email"

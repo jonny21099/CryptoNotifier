@@ -1,8 +1,8 @@
 import smtplib
 import datetime
+import os
 from email.mime.text import MIMEText
-
-from src.coinmarketcap.notification_utils import NotificationUtils
+from notification_utils import NotificationUtils
 
 
 class NotificationSMTP:
@@ -43,8 +43,8 @@ class NotificationSMTP:
         return emails_sent
 
     def send_email(self, buy, crypto, price):
-        email_css = open("../email/email.css").read()
-        email_html = open("../email/email.html").read()
+        email_css = open(f"{os.getenv('EMAIL_PATH')}/email.css").read()
+        email_html = open(f"{os.getenv('EMAIL_PATH')}/email.html").read()
         if buy:
             subject = "[B]Jmartins Crypto Notifier"
             body = email_html.format(email_css, crypto, price, "buying")

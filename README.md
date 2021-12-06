@@ -67,12 +67,13 @@ EMAIL_RECEIVER='receiver1@domain.com,receiver2@domain.com,receiver3@domain.com'
 ```
 
 ## Run Program
-#### The program takes in arguments to run the options are shown below.
-```
-python main.py smtp
-or
-python main.py sns
-```
+#### The program is fully dockerized
+| Command                                                | Description                                           |
+| ------------------------------------------------------ | ----------------------------------------------------  |
+| `docker-compose --verbose --log-level DEBUG build cli` | Verbosely build the CLI (helpful for debugging)       |
+| `docker-compose run cli`                               | Hop into an environment that you can run the code on  |
+| `docker-compose run crypto-cmc-smtp`                    | Run crypto price fetcher|
+
 
 ## Credits
 #### All rights and credits for HTML and css [template](https://github.com/leemunroe/responsive-html-email-template) goes to Lee Munroe.

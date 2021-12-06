@@ -43,17 +43,15 @@ class NotificationSMTP:
         return emails_sent
 
     def send_email(self, buy, crypto, price):
-        email_css = open(f"{os.getenv('EMAIL_PATH')}/email.css").read()
-        email_html = open(f"{os.getenv('EMAIL_PATH')}/email.html").read()
         if buy:
             subject = "[B]Jmartins Crypto Notifier"
-            body = email_html.format(email_css, crypto, price, "buying")
+            body = f"{crypto} has dropped under {price}, time to cry together."
 
         else:
             subject = "[S]Jmartins Crypto Notifier"
-            body = email_html.format(email_css, crypto, price, "selling")
+            body = f"{crypto} has reached {price}, we are rich again."
 
-        msg = MIMEText(body, 'html')
+        msg = MIMEText(body, 'text')
         msg['Subject'] = subject
 
         try:

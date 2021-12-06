@@ -1,4 +1,6 @@
 import boto3
+import datetime
+from src.coinmarketcap.notification_utils import NotificationUtils
 
 
 class NotificationSNS:
@@ -9,21 +11,23 @@ class NotificationSNS:
         self.__sell_notification_value = environment["sell_notification_value"]
         self.__topic_arn = environment["topic_arn"]
         self.__currency = environment["currency"]
+        self.__notification_cd_timer = environment["notification_cd_timer"]
+        self.__notification_interval = environment["notification_interval"]
 
     def compare_price_and_notify(self):
         emails_sent = 0
         for i in range(len(self.__current_price_list)):
-            if float(self.__current_price_list[i]) >= float(self.__sell_notification_value[i]):
-                print(f"The price of {self.__cryptos[i]} has reached {self.__current_price_list[i]}.")
-                buy = False
-                self.publish_notification(False, self.__cryptos[i], self.__current_price_list[i])
-            elif float(self.__current_price_list[i]) <= float(self.__buy_notification_value[i]):
-                print(f"The price of {self.__cryptos[i]} has dropped to {self.__current_price_list[i]}.")
-                buy = True
-                self.publish_notification(True, self.__cryptos[i], self.__current_price_list[i])
-            else:
+            buy = NotificationUtils.compare_price(self.__current_price_list[i], self.__sell_notification_value[i],
+                                                  self.__buy_notification_value[i], self.__cryptos[i])
+            if buy is None:
                 continue
-            emails_sent += 1
+
+            if self.__notification_cd_timer[i] is None or self.__notification_cd_timer[i] + datetime.timedelta(
+                    hours=self.__notification_interval) <= datetime.datetime.now():
+                self.publish_notification(buy, self.__cryptos[i], self.__current_price_list[i])
+                self.__notification_cd_timer[i] = datetime.datetime.now()
+                emails_sent += 1
+
         return emails_sent
 
     def publish_notification(self, buy, crypto, current_value):

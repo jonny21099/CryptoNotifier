@@ -2,6 +2,8 @@ import smtplib
 import datetime
 from email.mime.text import MIMEText
 
+from src.coinmarketcap.notification_utils import NotificationUtils
+
 
 class NotificationSMTP:
     def __init__(self, current_price_list, environment):
@@ -25,6 +27,21 @@ class NotificationSMTP:
         except smtplib.SMTPAuthenticationError:
             print("Failed to authenticate user.")
 
+    def compare_price_and_notify(self):
+        emails_sent = 0
+        for i in range(len(self.__current_price_list)):
+            buy = NotificationUtils.compare_price(self.__current_price_list[i], self.__sell_notification_value[i],
+                                                  self.__buy_notification_value[i], self.__cryptos[i])
+            if buy is None:
+                continue
+
+            if self.__notification_cd_timer[i] is None or self.__notification_cd_timer[i] + datetime.timedelta(
+                    hours=self.__notification_interval) <= datetime.datetime.now():
+                self.send_email(buy, self.__cryptos[i], self.__current_price_list[i])
+                self.__notification_cd_timer[i] = datetime.datetime.now()
+                emails_sent += 1
+        return emails_sent
+
     def send_email(self, buy, crypto, price):
         email_css = open("../email/email.css").read()
         email_html = open("../email/email.html").read()
@@ -45,21 +62,3 @@ class NotificationSMTP:
             server.close()
         except smtplib.SMTPRecipientsRefused:
             print("All recipients failed to receive email notification.")
-
-    def compare_price_and_notify(self):
-        emails_sent = 0
-        for i in range(len(self.__current_price_list)):
-            if float(self.__current_price_list[i]) >= float(self.__sell_notification_value[i]):
-                print(f"The price of {self.__cryptos[i]} has reached {self.__current_price_list[i]}.")
-                buy = False
-            elif float(self.__current_price_list[i]) <= float(self.__buy_notification_value[i]):
-                print(f"The price of {self.__cryptos[i]} has dropped to {self.__current_price_list[i]}.")
-                buy = True
-            else:
-                continue
-            if self.__notification_cd_timer[i] is None or self.__notification_cd_timer[i] + datetime.timedelta(
-                    hours=self.__notification_interval) <= datetime.datetime.now():
-                self.send_email(buy, self.__cryptos[i], self.__current_price_list[i])
-                self.__notification_cd_timer[i] = datetime.datetime.now()
-            emails_sent += 1
-        return emails_sent

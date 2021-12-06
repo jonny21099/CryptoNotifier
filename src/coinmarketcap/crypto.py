@@ -15,7 +15,7 @@ class Crypto:
         URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
         PARAMS = {"CMC_PRO_API_KEY": self.__api_key, "symbol": ",".join(self.__cryptos), "convert": self.__currency}
 
-        print("Fetching prices...")
+        print("\nFetching prices...")
         r = requests.get(URL, PARAMS)
         data = r.json()
         print(f"Retrieval time: {datetime.now()}\n")

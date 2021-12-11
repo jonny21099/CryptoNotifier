@@ -45,11 +45,11 @@ class NotificationSMTP:
     def send_email(self, buy, crypto, price):
         if buy:
             subject = "[B]Jmartins Crypto Notifier"
-            body = f"{crypto} has dropped under {price}, time to cry together."
+            body = f"{crypto} has dropped under {price}, time to cry together. :("
 
         else:
             subject = "[S]Jmartins Crypto Notifier"
-            body = f"{crypto} has reached {price}, we are rich again."
+            body = f"{crypto} has reached {price}, we are rich again. :)"
 
         msg = MIMEText(body, 'text')
         msg['Subject'] = subject
